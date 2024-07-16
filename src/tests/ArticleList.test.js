@@ -7,9 +7,9 @@ test('renders article titles', () => {
     { title: 'Article 1', url: 'url1' },
     { title: 'Article 2', url: 'url2' },
   ];
-  
-  render(<ArticleList articles={articles} onSelectArticle={() => {}} />);
-  
+
+  render(<ArticleList articles={articles} />);
+
   expect(screen.getByText(/Article 1/i)).toBeInTheDocument();
   expect(screen.getByText(/Article 2/i)).toBeInTheDocument();
 });

@@ -1,14 +1,15 @@
 import React from 'react';
+import ArticleDetail from './ArticleDetail';
 
-const ArticleList = ({ articles, onSelectArticle }) => {
+const ArticleList = ({ articles }) => {
   return (
-    <ul>
-      {articles.map(article => (
-        <li key={article.url} onClick={() => onSelectArticle(article)}>
-          <a href={article.url} style={{ pointerEvents: 'none' }}>{article.title}</a>
-        </li>
+    <div>
+      {articles.map((item, index) => (
+        <div key={index}>
+          <ArticleDetail article={item} />
+        </div>
       ))}
-    </ul>
+    </div>
   );
 };
 

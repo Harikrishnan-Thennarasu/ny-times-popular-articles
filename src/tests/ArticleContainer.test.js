@@ -1,13 +1,11 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ArticleContainer from '../containers/ArticleContainer';
-
-jest.mock('../api', () => ({
-  fetchArticles: jest.fn(() => Promise.resolve({ results: [{ title: 'Test Article', url: 'url' }] }))
-}));
+import { act } from 'react';
+import ArticleContainer from '../components/ArticleContainer';
 
 test('renders ArticleContainer', async () => {
-  render(<ArticleContainer />);
+  await act(async () => {
+    render(<ArticleContainer />);
+  });
 
   expect(document.body).toBeInTheDocument();
 });

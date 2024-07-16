@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { fetchArticles } from '../api';
-import ArticleList from '../components/ArticleList';
-import ArticleDetail from '../components/ArticleDetail';
-import TabSelector from '../components/TabComponent';
+import ArticleList from './ArticleList';
+import TabSelector from './TabComponent';
+import Divider from './Divider';
 
 const ArticleContainer = () => {
   const [articles, setArticles] = useState([]);
-  const [selectedArticle, setSelectedArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState(1);
 
@@ -27,8 +26,9 @@ const ArticleContainer = () => {
   }, []);
 
   const onTabChnage = async (value) => {
-    setPeriod(period);
     try {
+      setLoading(true);
+      setPeriod(value);
       const data = await fetchArticles(value);
       setArticles(data?.results || []);
     } catch (error) {
@@ -38,9 +38,6 @@ const ArticleContainer = () => {
     }
   }
 
-  const handleSelectArticle = (article) => {
-    setSelectedArticle(article);
-  };
 
   return (
     <div>
@@ -48,9 +45,9 @@ const ArticleContainer = () => {
         <p>Loading...</p>
       ) : (
         <div>
-          <TabSelector onSelect={onTabChnage} />
-          <ArticleList articles={articles} onSelectArticle={handleSelectArticle} />
-          {selectedArticle && <ArticleDetail article={selectedArticle} />}
+          <TabSelector value={period} onSelect={onTabChnage} />
+          <Divider />
+          <ArticleList articles={articles} />
         </div>
       )}
     </div>
